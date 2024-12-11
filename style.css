@@ -17,6 +17,11 @@ body {
    height: 100vh;
 }
 
+#task-container {
+    max-width: 1200px;
+    margin: auto;
+}
+
 .task-area {
     margin: 2rem auto;
     background-color: var(--primary-color);
@@ -96,4 +101,36 @@ body {
 
 #task-added-area {
     color: var(--fourty-color);
+    display: flex;
+    flex-direction: row;
+}
+
+.task-item {
+    flex: 1;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--primary-color);
+}
+
+.task-item .task-info {
+    width: 100%;
+}
+
+.task-done {
+    width: 100%;
+}
+
+.task-item .task-done button {
+    border-radius: 20px;
+    border: none;
+    background-color: var(--third-color);
+    padding: 10px;
+    color: var(--primary-color);
+    font-weight: 700;
 }

@@ -8,42 +8,44 @@
     <title>To-do: List</title>
 </head>
 <body>
-    <div class="task-area">
-        <form> 
-            <h2> Task List </h2>
-            <fieldset class="input-wrapper">
-                <div class="input-item">
-                    <label for="">Title</label>
-                    <input type="text" name="task" id="task-field-name" placeholder="Task title">
-                </div>
-                <div class="input-item">
-                    <label for="">Notes</label>
-                    <input type="text" name="notes" id="task-field-name" placeholder="Task notes">
-                </div>
-                <div class="input-item">
-                    <label for="">Date</label>
-                    <input type="date" name="date" id="task-field-date">
-                </div>
-                <div class="input-item" id="">
-                    <label for="">Prority</label>
-                    <div class="priority-area">
-                        <select name="priority" id="priority-select" onchange="getProperty(event)">
-                            <option selected disabled> Select priority </option>
-                            <option value="High"> High </option>
-                            <option value="Medium"> Medium </option>
-                            <option value="Low"> Low </option>
-                        </select>
+    <section id="task-container">
+        <div class="task-area">
+            <form> 
+                <h2> Task List </h2>
+                <fieldset class="input-wrapper">
+                    <div class="input-item">
+                        <label for="">Title</label>
+                        <input type="text" name="task" id="task-field-name" placeholder="Task title">
                     </div>
-                </div>
-                <div class="input-item">
-                    <button class="btn-send" onclick="sendTask()"> Add task </button>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <div id="task-added-area">
-
-    </div>
+                    <div class="input-item">
+                        <label for="">Notes</label>
+                        <input type="text" name="notes" id="task-field-notes" placeholder="Task notes">
+                    </div>
+                    <div class="input-item">
+                        <label for="">Date</label>
+                        <input type="date" name="date" id="task-field-date">
+                    </div>
+                    <div class="input-item" id="">
+                        <label for="">Prority</label>
+                        <div class="priority-area">
+                            <select name="priority" id="priority-select" onchange="getProperty(event)">
+                                <option selected disabled> Select priority </option>
+                                <option value="High"> High </option>
+                                <option value="Medium"> Medium </option>
+                                <option value="Low"> Low </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-item">
+                        <button class="btn-send" onclick="sendTask(event)"> Add task </button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="task-added-area">
+    
+        </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/1392966492.js" crossorigin="anonymous"></script>

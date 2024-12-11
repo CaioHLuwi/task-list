@@ -24,10 +24,11 @@ function getProperty(e) {
     let property = e.target.value;
     taskProperty = setProperty(property);
 }
-function sendTask() {
+function sendTask(e) {
+    e.preventDefault();
     let taskTitle = document.querySelector('#task-field-name').value;
     let taskDate = document.querySelector('#task-field-date').value;
-    let taskDescription = document.querySelector('textarea').value;
+    let taskDescription = document.querySelector('#task-field-notes').value;
 
     if (taskTitle != '' && taskDate != '' && taskDescription != '') {
         addTask(taskTitle, taskDate, taskDescription, taskProperty);
@@ -50,12 +51,12 @@ function getTask() {
 
         let taskDone = createElement('div', 'task-done');
 
-        taskDone.innerHTML = '<i class="fa-regular fa-circle-check"></i>';
+        taskDone.innerHTML = '<button> Concluir tarefa </button>';
 
         let taskInfo = createElement('div', 'task-info')
 
         let taskTitle = createElement('div', 'task-title');
-        taskTitle.textContent = `${tasks[task].title}`;
+        taskTitle.textContent = (tasks[task].priority == 'High') ? `!!! ${tasks[task].title}` : (tasks[task].priority == 'Medium') ? `!! ${tasks[task].title}` : `! ${tasks[task].title}` ;
 
         let taskDescription = createElement('div', 'task-description');
         taskDescription.textContent = tasks[task].description;
@@ -63,16 +64,16 @@ function getTask() {
         let taskDate = createElement('div', 'task-date');
         taskDate.textContent = tasks[task].date;
 
-        let taskPriority = createElement('div', 'task-date');
-        taskPriority.textContent = tasks[task].priority;
+        // let taskPriority = createElement('div', 'task-date');
+        // taskPriority.textContent = (tasks[task].priority == 'High') ? task;
     
         addedArea.appendChild(taskItem);
-        taskItem.appendChild(taskDone);
         taskItem.appendChild(taskInfo);
         taskInfo.appendChild(taskTitle);
         taskInfo.appendChild(taskDescription)
         taskInfo.appendChild(taskDate);
-        taskInfo.appendChild(taskPriority);
+        taskItem.appendChild(taskDone);
+        // taskInfo.appendChild(taskPriority);
     })
 }
 
