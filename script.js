@@ -1,9 +1,13 @@
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-function addTask(title, date, description) {
+let taskProperty = '';
+
+function addTask(title, date, description, priority) {
+
     const newTask = {
         title: title,
         date: date,
-        description: description
+        description: description,
+        priority: priority,
     }
 
     tasks.push(newTask);
@@ -11,16 +15,24 @@ function addTask(title, date, description) {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+function setProperty(taskProperty) {
+    console.log(taskProperty);
+    return taskProperty;
+}
 
-function sendTask(e) {
+function getProperty(e) {
+    let property = e.target.value;
+    taskProperty = setProperty(property);
+}
+function sendTask() {
     let taskTitle = document.querySelector('#task-field-name').value;
     let taskDate = document.querySelector('#task-field-date').value;
     let taskDescription = document.querySelector('textarea').value;
 
-    if(taskTitle != '' && taskDate != '' && taskDescription != '') {
-        addTask(taskTitle, taskDate, taskDescription);
+    if (taskTitle != '' && taskDate != '' && taskDescription != '') {
+        addTask(taskTitle, taskDate, taskDescription, taskProperty);
     } else {
-        console.log('Preencha os campos.')
+        console.log('Preencha todos os campos e selecione uma prioridade.');
     }
 }
 
@@ -50,6 +62,9 @@ function getTask() {
 
         let taskDate = createElement('div', 'task-date');
         taskDate.textContent = tasks[task].date;
+
+        let taskPriority = createElement('div', 'task-date');
+        taskPriority.textContent = tasks[task].priority;
     
         addedArea.appendChild(taskItem);
         taskItem.appendChild(taskDone);
@@ -57,6 +72,7 @@ function getTask() {
         taskInfo.appendChild(taskTitle);
         taskInfo.appendChild(taskDescription)
         taskInfo.appendChild(taskDate);
+        taskInfo.appendChild(taskPriority);
     })
 }
 
