@@ -55,7 +55,7 @@ function getTask() {
         let taskInfo = createElement('div', 'task-info')
 
         let taskTitle = createElement('div', 'task-title');
-        taskTitle.textContent = tasks[task].title;
+        taskTitle.textContent = `${tasks[task].title}`;
 
         let taskDescription = createElement('div', 'task-description');
         taskDescription.textContent = tasks[task].description;
