@@ -9,6 +9,7 @@
     --secondary-color: #342e37;
     --third-color: #88df0f;
     --fourty-color: #ffff;
+    --hover-color: #599505;
 }
 
 body {
@@ -31,6 +32,7 @@ body {
     align-items: center;
     width: 450px;
     padding: 50px;
+    border: solid 1px var(--third-color);
 }
 
 .task-area h2 {
@@ -102,24 +104,45 @@ body {
 #task-added-area {
     color: var(--fourty-color);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading {
+    color: var(--fourty-color);
+    text-align: center;
 }
 
 .task-item {
     flex: 1;
-    padding: 20px;
+    padding: 25px;
     margin: 10px;
-    width: 250px;
+    width: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
     background-color: var(--primary-color);
+    border-radius: 10px;
+    border: solid 1px var(--third-color);
 }
 
 .task-item .task-info {
     width: 100%;
+}
+
+.task-item .task-info .task-title {
+    color: var(--third-color);
+    font-size: 1.3rem;
+}
+
+.task-item .task-info .task-date {
+    color: #d0d0d0;
+}
+
+.task-description {
+    color: #a3a3a3;
 }
 
 .task-done {
@@ -127,10 +150,23 @@ body {
 }
 
 .task-item .task-done button {
+    margin-top: 5px;
     border-radius: 20px;
-    border: none;
-    background-color: var(--third-color);
+    background: transparent;
+    border: 1px solid var(--third-color);
     padding: 10px;
-    color: var(--primary-color);
+    color: var(--fourty-color);
+    width: 100%;
     font-weight: 700;
+    transition:  0.5s ease-in-out;
+}
+
+.task-item .task-done button:hover {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+}
+
+.title-section {
+    padding: 10px;
+    background-color: var(--third-color);
 }

@@ -24,8 +24,8 @@ function getProperty(e) {
     let property = e.target.value;
     taskProperty = setProperty(property);
 }
-function sendTask(e) {
-    e.preventDefault();
+
+function sendTask() {
     let taskTitle = document.querySelector('#task-field-name').value;
     let taskDate = document.querySelector('#task-field-date').value;
     let taskDescription = document.querySelector('#task-field-notes').value;
@@ -46,39 +46,66 @@ function createElement(element, classe, data){
 
 function getTask() {
     let addedArea = document.querySelector('#task-added-area');
-    Object.keys(tasks).forEach((task)=> {
-        let taskItem = createElement('div', 'task-item');
-
-        let taskDone = createElement('div', 'task-done');
-
-        taskDone.innerHTML = '<button> Concluir tarefa </button>';
-
-        let taskInfo = createElement('div', 'task-info')
-
-        let taskTitle = createElement('div', 'task-title');
-        taskTitle.textContent = (tasks[task].priority == 'High') ? `!!! ${tasks[task].title}` : (tasks[task].priority == 'Medium') ? `!! ${tasks[task].title}` : `! ${tasks[task].title}` ;
-
-        let taskDescription = createElement('div', 'task-description');
-        taskDescription.textContent = tasks[task].description;
-
-        let taskDate = createElement('div', 'task-date');
-        taskDate.textContent = tasks[task].date;
-
-        // let taskPriority = createElement('div', 'task-date');
-        // taskPriority.textContent = (tasks[task].priority == 'High') ? task;
+    let loading = document.querySelector('.loading');
+    if(tasks != '') {
+        loading.style.display = 'none';
+        Object.keys(tasks).forEach((task)=> {
+            let taskItem = createElement('div', 'task-item');
     
-        addedArea.appendChild(taskItem);
-        taskItem.appendChild(taskInfo);
-        taskInfo.appendChild(taskTitle);
-        taskInfo.appendChild(taskDescription)
-        taskInfo.appendChild(taskDate);
-        taskItem.appendChild(taskDone);
-        // taskInfo.appendChild(taskPriority);
+            let taskDone = createElement('div', 'task-done');
+    
+            taskDone.innerHTML = "<button class='task-check'> Concluir tarefa </button>";
+    
+            let taskInfo = createElement('div', 'task-info')
+    
+            let taskTitle = createElement('div', 'task-title');
+            taskTitle.textContent = (tasks[task].priority == 'High') ? `!!! ${tasks[task].title}` : (tasks[task].priority == 'Medium') ? `!! ${tasks[task].title}` : `! ${tasks[task].title}` ;
+    
+            let taskDescription = createElement('div', 'task-description');
+            taskDescription.textContent = `Notes: ${tasks[task].description}`;
+    
+            let taskDate = createElement('div', 'task-date');
+            taskDate.textContent = `Date: ${tasks[task].date}`;
+    
+            // let taskPriority = createElement('div', 'task-date');
+            // taskPriority.textContent = (tasks[task].priority == 'High') ? task;
+        
+            addedArea.appendChild(taskItem);
+            taskItem.appendChild(taskInfo);
+            taskInfo.appendChild(taskTitle);
+            taskInfo.appendChild(taskDescription)
+            taskInfo.appendChild(taskDate);
+            taskItem.appendChild(taskDone);
+            // taskInfo.appendChild(taskPriority);
+        })
+    } else {
+        loading.style.display = 'block';
+    }
+}
+
+function concludesTask(titleToConclude) {
+    let checkButtons = document.querySelectorAll('.task-check');
+
+    checkButtons.forEach(check => {
+        check.addEventListener('click', () => {
+            if(tasks) {
+                Object.keys(tasks).forEach((task) => {
+                    console.log(tasks = tasks.filter(taskFiltered => taskFiltered[task].title !== titleToConclude));
+                    console.log(tasks[task].title);
+                })
+        
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+            } else {
+                console.log('teste');
+            }
+        })
     })
 }
 
 getTask();
+concludesTask('Task teste');
 
+console.log(JSON.parse(localStorage.getItem('tasks')));
 // TO DO
 // AO CLICAR NO CHECK ELE MUDA O ÍCONE, COLOCA UMA COR VERDE E APAGA DO LOCALSTORAGE.
 // REMOVER TAREFA DE ALGUMA FORMA
