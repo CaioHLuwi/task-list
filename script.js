@@ -59,7 +59,7 @@ function getTask() {
             let taskInfo = createElement('div', 'task-info')
     
             let taskTitle = createElement('div', 'task-title');
-            taskTitle.textContent = (tasks[task].priority == 'High') ? `!!! ${tasks[task].title}` : (tasks[task].priority == 'Medium') ? `!! ${tasks[task].title}` : `! ${tasks[task].title}` ;
+            taskTitle.innerHTML = (tasks[task].priority == 'High') ? `!!! <span class='title'> ${tasks[task].title} </span>` : (tasks[task].priority == 'Medium') ? `!! <span class='title'> ${tasks[task].title} </span>` : `! <span class='title'> ${tasks[task].title} </span>` ;
     
             let taskDescription = createElement('div', 'task-description');
             taskDescription.textContent = `Notes: ${tasks[task].description}`;
@@ -87,25 +87,26 @@ function concludesTask(titleToConclude) {
     let checkButtons = document.querySelectorAll('.task-check');
 
     checkButtons.forEach(check => {
-        check.addEventListener('click', () => {
-            if(tasks) {
-                Object.keys(tasks).forEach((task) => {
-                    console.log(tasks = tasks.filter(taskFiltered => taskFiltered[task].title !== titleToConclude));
-                    console.log(tasks[task].title);
-                })
-        
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-            } else {
-                console.log('teste');
+        check.addEventListener('click', (e) => {
+            for(let i = 0; i < tasks.length; i++) {
+                let items = tasks[i];
+
+                let clickedButton = e.target;
+                let titleOfTheElement = clickedButton.parentElement
+                .parentElement.querySelector('.task-title .title').innerHTML;
+                let fixTitle = titleOfTheElement.trim();
+                if(items.title.trim() == fixTitle) {
+                    tasks.splice(i, 1);
+                }
             }
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            location.reload();
         })
     })
 }
 
 getTask();
 concludesTask('Task teste');
-
-console.log(JSON.parse(localStorage.getItem('tasks')));
 // TO DO
 // AO CLICAR NO CHECK ELE MUDA O ÍCONE, COLOCA UMA COR VERDE E APAGA DO LOCALSTORAGE.
 // REMOVER TAREFA DE ALGUMA FORMA
