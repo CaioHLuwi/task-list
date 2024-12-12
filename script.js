@@ -107,6 +107,4 @@ function concludesTask(titleToConclude) {
 
 getTask();
 concludesTask('Task teste');
-// TO DO
-// AO CLICAR NO CHECK ELE MUDA O ÍCONE, COLOCA UMA COR VERDE E APAGA DO LOCALSTORAGE.
 // REMOVER TAREFA DE ALGUMA FORMA

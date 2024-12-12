@@ -93,10 +93,11 @@ body {
 
 .task-area .input-item .btn-send {
     margin-top: 2rem;
+    background: transparent;
     border: none;
-    background-color: var(--third-color);
+    border: 1px solid var(--third-color);
     padding: 5px;
-    color: var(--primary-color);
+    color: var(--third-color);
     font-weight: 700;
 
 }
