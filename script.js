@@ -1,6 +1,18 @@
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 let taskProperty = '';
 
+function sendTask() {
+    let taskTitle = document.querySelector('#task-field-name').value;
+    let taskDate = document.querySelector('#task-field-date').value;
+    let taskDescription = document.querySelector('#task-field-notes').value;
+
+    if (taskTitle != '' && taskDate != '' && taskDescription != '') {
+        addTask(taskTitle, taskDate, taskDescription, taskProperty);
+    } else {
+        document.querySelector('.warning-msg').style.display = 'block'
+    }
+}
+
 function addTask(title, date, description, priority) {
 
     const newTask = {
@@ -25,18 +37,6 @@ function getProperty(e) {
     taskProperty = setProperty(property);
 }
 
-function sendTask() {
-    let taskTitle = document.querySelector('#task-field-name').value;
-    let taskDate = document.querySelector('#task-field-date').value;
-    let taskDescription = document.querySelector('#task-field-notes').value;
-
-    if (taskTitle != '' && taskDate != '' && taskDescription != '') {
-        addTask(taskTitle, taskDate, taskDescription, taskProperty);
-    } else {
-        console.log('Preencha todos os campos e selecione uma prioridade.');
-    }
-}
-
 function createElement(element, classe, data){
     let elementCreated = document.createElement(element);
     elementCreated.classList.add(classe);
@@ -55,7 +55,11 @@ function getTask() {
             let taskDone = createElement('div', 'task-done');
     
             taskDone.innerHTML = "<button class='task-check'> Concluir tarefa </button>";
-    
+
+            let taskDelete = createElement('div', 'task-delete');
+
+            taskDelete.innerHTML = "<button class='task-del'> X </button>"
+            
             let taskInfo = createElement('div', 'task-info')
     
             let taskTitle = createElement('div', 'task-title');
@@ -66,9 +70,6 @@ function getTask() {
     
             let taskDate = createElement('div', 'task-date');
             taskDate.textContent = `Date: ${tasks[task].date}`;
-    
-            // let taskPriority = createElement('div', 'task-date');
-            // taskPriority.textContent = (tasks[task].priority == 'High') ? task;
         
             addedArea.appendChild(taskItem);
             taskItem.appendChild(taskInfo);
@@ -76,14 +77,14 @@ function getTask() {
             taskInfo.appendChild(taskDescription)
             taskInfo.appendChild(taskDate);
             taskItem.appendChild(taskDone);
-            // taskInfo.appendChild(taskPriority);
+            taskItem.appendChild(taskDelete);
         })
     } else {
         loading.style.display = 'block';
     }
 }
 
-function concludesTask(titleToConclude) {
+function concludeTask() {
     let checkButtons = document.querySelectorAll('.task-check');
 
     checkButtons.forEach(check => {
@@ -105,6 +106,29 @@ function concludesTask(titleToConclude) {
     })
 }
 
+function deleteTask() {
+    let deleteButtons = document.querySelectorAll('.task-del');
+
+    deleteButtons.forEach(check => {
+        check.addEventListener('click', (e) => {
+            for(let i = 0; i < tasks.length; i++) {
+                let items = tasks[i];
+
+                let clickedButton = e.target;
+                let titleOfTheElement = clickedButton.parentElement
+                .parentElement.querySelector('.task-title .title').innerHTML;
+                let fixTitle = titleOfTheElement.trim();
+                if(items.title.trim() == fixTitle) {
+                    tasks.splice(i, 1);
+                }
+            }
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            location.reload();
+        })
+    })
+}
+
 getTask();
-concludesTask('Task teste');
+concludeTask();
+deleteTask();
 // REMOVER TAREFA DE ALGUMA FORMA
